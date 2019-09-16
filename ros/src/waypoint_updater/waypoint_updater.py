@@ -52,7 +52,7 @@ class WaypointUpdater(object):
             if self.pose and self.base_waypoints:
                 # get closest waypoint index and publish its index and next 199 indices
                 closest_waypoint_idx = self.get_closest_waypoint_idx()
-                rospy.logdebug('LOOP working and closest waypoint idx is ' + closest_waypoint_idx);
+                rospy.logdebug('LOOP working and closest waypoint idx is ' + closest_waypoint_idx)
                 self.publish_waypoints(closest_waypoint_idx)
             rate.sleep()
 
