@@ -32,9 +32,10 @@ class WaypointUpdater(object):
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb)
         rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb)
 
-        # TODO: Add a subscriber for /traffic_waypoint and /obstacle_waypoint below
+        # a subscriber for /traffic_waypoint and /obstacle_waypoint below
+        #rospy.Subscriber('/traffic_waypoint', Int32,self.traffic_cb)
         self.final_waypoints_pub = rospy.Publisher('final_waypoints', Lane, queue_size=1)
-
+        
         # member variables(store important info)
         self.base_lane = None
         # this car's position
@@ -90,7 +91,7 @@ class WaypointUpdater(object):
     def waypoints_cb(self, waypoints):
         self.base_waypoints = waypoints
         if not self.waypoints_2d:
-            self.waypoints_2d =[[Waypoint.pose.pose.position.x, Waypoint.pose.pose.y] for waypoint in waypoints.waypoints]
+            self.waypoints_2d =[[Waypoint.pose.pose.position.x, Waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
             # add waypoints to KD tree for getting closest waypoint purpose
             self.waypoint_tree = KDTree(self.waypoints_2d)
 
