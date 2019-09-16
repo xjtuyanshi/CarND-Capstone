@@ -44,9 +44,7 @@ class WaypointUpdater(object):
         rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb)
 
         self.final_waypoints_pub = rospy.Publisher('final_waypoints', Lane, queue_size=1)
-
-        rospy.spin()
-
+        #rospy.spin()
         self.loop()
 
     # this function is for publish final waypoints at 50hz rate
@@ -56,6 +54,7 @@ class WaypointUpdater(object):
             if self.pose and self.base_lane:
                 # get closest waypoint index and publish its index and next 199 indices
                 closest_waypoint_idx = self.get_closest_waypoint_idx()
+                rospy.logdebug('LOOP working and closest waypoint idx is ' + closest_waypoint_idx);
                 self.publish_waypoints(closest_waypoint_idx)
             rate.sleep()
 
